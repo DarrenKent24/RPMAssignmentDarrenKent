@@ -1,0 +1,61 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<form method="post">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <h2>RPM Hiring Assignment</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <input id="inputText" asp-for="txtInput" class="form-control input-lg" type="text" placeholder="Enter text here">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button id="btnJSOutput" type="button" class="btn btn-primary"> Transform With Javascript</button>
+            <button type="submit" class="btn btn-success"> Transform With C#</button>
+            <p>&nbsp;</p>
+        </div>
+    </div>
+    <div class="col-md-12 jumbotron">
+        <div id="outputText">
+            @*Using html helper instead of tag helper.*@
+            @*<label asp-for="txtOutput" />*@
+
+            @*@Html.DisplayFor(m => m.txtOutput)*@
+
+            <p class="text-success">@Html.DisplayFor(m => m.txtOutput)</p>
+        </div>
+    </div>
+
+</form>
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $("#btnJSOutput").click(function () {
+                var i = $("#inputText").val();
+
+                var words = i.split(' ');
+                var pig = "";
+                for (i = 0; i < words.length; i++) {
+                    words[i] += words[i][0];
+                    words[i] = words[i].slice(1);
+                    words[i] += "ay";
+                    pig += " " + words[i];
+                }
+                $("#outputText").html("<p>Your text transformed in Pig Latin: </p><p class=\"text-primary\">" + pig.trim() + "<\p>");
+            });
+        });
+    </script>
+}
